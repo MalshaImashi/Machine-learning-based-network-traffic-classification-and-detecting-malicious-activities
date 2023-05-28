@@ -1,0 +1,75 @@
+
+import tkinter as tk
+from tkinter import filedialog
+
+def classify_traffic():
+    # Get the file path from the entry field
+    file_path = file_path_entry.get()
+
+    # Placeholder code to simulate traffic classification
+    # Replace this with your actual machine learning classification code
+    results_text.insert(tk.END, f"Classifying traffic from file: {file_path}\n")
+    results_text.insert(tk.END, "Traffic type: HTTP\n")
+    results_text.insert(tk.END, "Confidence: 95%\n")
+
+def browse_file():
+    filename = filedialog.askopenfilename(initialdir="/", title="Select Traffic Data File")
+    file_path_entry.delete(0, tk.END)
+    file_path_entry.insert(tk.END, filename)
+
+# Create the main window
+window = tk.Tk()
+window.title("Traffic Classification System")
+
+# Set custom color scheme
+primary_color = "#264653"
+secondary_color = "#2A9D8F"
+text_color = "#FFFFFF"
+
+# Set window background color
+window.configure(bg=primary_color)
+
+# Input Section
+input_frame = tk.Frame(window, bg=primary_color)
+input_frame.pack(pady=10)
+
+file_path_label = tk.Label(input_frame, text="Traffic Data File:", bg=primary_color, fg=text_color, font=("Helvetica", 12))
+file_path_label.grid(row=0, column=0, padx=10, pady=5)
+
+file_path_entry = tk.Entry(input_frame, width=40, font=("Helvetica", 12))
+file_path_entry.grid(row=0, column=1, padx=10, pady=5)
+
+browse_button = tk.Button(input_frame, text="Browse", command=browse_file, bg=secondary_color, fg=text_color, font=("Helvetica", 12))
+browse_button.grid(row=0, column=2, padx=10, pady=5)
+
+# Classification Section
+classification_frame = tk.Frame(window, bg=primary_color)
+classification_frame.pack(pady=10)
+
+classify_button = tk.Button(classification_frame, text="Classify", command=classify_traffic, bg=secondary_color, fg=text_color, font=("Helvetica", 14, "bold"))
+classify_button.pack(pady=5)
+
+# Results Section
+results_frame = tk.Frame(window, bg=primary_color)
+results_frame.pack(pady=10)
+
+results_label = tk.Label(results_frame, text="Classification Results:", bg=primary_color, fg=text_color, font=("Helvetica", 14, "underline"))
+results_label.pack()
+
+results_text = tk.Text(results_frame, width=50, height=10, font=("Helvetica", 12))
+results_text.pack()
+
+# Clear/Reset Button
+clear_button = tk.Button(window, text="Clear", command=lambda: results_text.delete(1.0, tk.END), bg=secondary_color, fg=text_color, font=("Helvetica", 12))
+clear_button.pack(pady=10)
+
+# Status Bar
+status_bar = tk.Label(window, text="Ready", bd=1, relief=tk.SUNKEN, anchor=tk.W, bg=secondary_color, fg=text_color, font=("Helvetica", 12, "italic"))
+status_bar.pack(side=tk.BOTTOM, fill=tk.X)
+
+# Exit Button
+exit_button = tk.Button(window, text="Exit", command=window.destroy, bg=secondary_color, fg=text_color, font=("Helvetica", 12))
+exit_button.pack(pady=10)
+
+# Start the main event loop
+window.mainloop()
